@@ -20,8 +20,9 @@ syn match   ccmsContainerKeyword '\%(^\s*\)\@<=\(Part\|Chapter\|Section\|Appendi
 syn match   ccmsContainerTitle   '\S.*' contains=@Spell contained
 syn match   ccmsMetaVariable     '\%(^\s*\)\@<=\S.\{-}\%(\s*=\)\@=' contains=ccmsMetaKeyword,@NoSpell nextgroup=ccmsMetaValue skipwhite
 syn match   ccmsMetaKeyword      '\%(Bug Links\|Copyright Holder\)' contains=@NoSpell contained 
-syn region  ccmsMetaValue        matchgroup=ccmsNormal start='=\s*' end='\s*$' contains=@Spell,ccmsMetaMultiline contained
+syn region  ccmsMetaValue        matchgroup=ccmsNormal start='=\s*' end='\s*$' contains=@Spell,ccmsMetaMultiline,ccmsMetaChecksum contained
 syn region  ccmsMetaMultiline    matchgroup=ccmsDelimiter start='\%(=\s*\)\@<=\[\s*' end='\s*\]\s*' contains=@Spell contained
+syn match   ccmsMetaChecksum     '[0-9a-fA-F]\{32\}' contains=@NoSpell contained
 syn match   ccmsComment          '\%(^\s*\)\@<=#.*' contains=@Spell
 
 hi def link ccmsNormal           Normal
@@ -34,6 +35,7 @@ hi def link ccmsMetaVariable     Identifier
 hi def link ccmsMetaKeyword      Keyword
 hi def link ccmsMetaValue        String
 hi def link ccmsMetaMultiline    String
+hi def link ccmsMetaChecksum     Special
 hi def link ccmsComment          Comment
 
 let b:current_syntax = 'contentspec'
