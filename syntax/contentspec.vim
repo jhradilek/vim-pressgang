@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:    PressGang CCMS Content Spec
 " Maintainer:  Jaromir Hradilek <jhradilek@gmail.com>
-" Last Change: 10 April 2013
+" Last Change: 11 April 2013
 " Description: A syntax file for PressGang CCMS Content Spec
 
 if exists('b:current_syntax') | finish | endif
@@ -14,8 +14,8 @@ syn keyword ccmsMetaKeyword CHECKSUM Description DTD Edition ID contained
 syn keyword ccmsMetaKeyword Product publican.cfg Subtitle Title contained
 syn keyword ccmsMetaKeyword Type Version contained
 
-syn match   ccmsTopicTitle       '\%(^\s*\)\@<=\S.\{-}\%(\s*\[\d\+\]\s*$\)\@=' contains=@Spell nextgroup=ccmsTopicID skipwhite
-syn match   ccmsTopicID          '\[\d\+\]\%(\s*$\)\@=' contains=@NoSpell contained
+syn match   ccmsTopicTitle       '\%(^\s*\)\@<=\S.\{-}\%(\s*\[[^\]]*\]\s*$\)\@=' contains=@Spell nextgroup=ccmsTopicID skipwhite
+syn match   ccmsTopicID          '\[\%(\d\+\|N,\s*\%(Concept\|Task\|Reference\)\)\]\%(\s*$\)\@=' contains=@NoSpell contained
 syn match   ccmsContainerKeyword '\%(^\s*\)\@<=\(Part\|Chapter\|Section\|Appendix\|Process\):' contains=@NoSpell nextgroup=ccmsContainerTitle skipwhite
 syn match   ccmsContainerTitle   '\S.*' contains=@Spell contained
 syn match   ccmsMetaVariable     '\%(^\s*\)\@<=\S.\{-}\%(\s*=\)\@=' contains=ccmsMetaKeyword,@NoSpell nextgroup=ccmsMetaValue skipwhite
