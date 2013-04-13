@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:    PressGang CCMS Content Spec
 " Maintainer:  Jaromir Hradilek <jhradilek@gmail.com>
-" Last Change: 11 April 2013
+" Last Change: 13 April 2013
 " Description: A syntax file for PressGang CCMS Content Spec
 
 if exists('b:current_syntax') | finish | endif
@@ -9,28 +9,39 @@ if exists('b:current_syntax') | finish | endif
 setlocal iskeyword+=.
 syn case match
 
-syn keyword ccmsMetaKeyword Brand BZCOMPONENT BZPRODUCT BZURL contained
-syn keyword ccmsMetaKeyword CHECKSUM Description DTD Edition ID contained
-syn keyword ccmsMetaKeyword Product publican.cfg Subtitle Title contained
-syn keyword ccmsMetaKeyword Type Version contained
+syn match   ccmsTopicTitle       '\%(^\s*\)\@<=\S.\{-}\%(\s*\[[^\]]*\]\)\@=' nextgroup=ccmsTopicID,ccmsTopicNew,ccmsTopicNewRef contains=@Spell skipwhite
+syn region  ccmsTopicID          contained matchgroup=ccmsDelimiter start='\[\%(\d\+[,\]]\)\@=' end='\]' nextgroup=ccmsTopicPrereq,ccmsTopicRelation,ccmsTopicTarget contains=@Spell skipwhite
+syn region  ccmsTopicNew         contained matchgroup=ccmsDelimiter start='\[\%(N\d*,\s*\%(Concept\|Task\|Reference\)[,\]]\)\@=' end='\]' nextgroup=ccmsTopicPrereq,ccmsTopicRelation,ccmsTopicTarget contains=@Spell skipwhite
+syn region  ccmsTopicNewRef      contained matchgroup=ccmsDelimiter start='\[\%(X\d\+\]\)\@=' end='\]' nextgroup=ccmsTopicPrereq,ccmsTopicRelation,ccmsTopicTarget contains=@NoSpell skipwhite
+syn region  ccmsTopicPrereq      contained matchgroup=ccmsDelimiter start='\[\%(P:\)\@=' end='\]' nextgroup=ccmsTopicRelation,ccmsTopicTarget contains=@NoSpell skipwhite
+syn region  ccmsTopicRelation    contained matchgroup=ccmsDelimiter start='\[\%(R:\|Refer-to:\)\@=' end='\]' nextgroup=ccmsTopicPrereq,ccmsTopicTarget contains=ccmsTopicID,@NoSpell skipwhite
+syn region  ccmsTopicTarget      contained matchgroup=ccmsDelimiter start='\[\%(T\)\@=' end='\]' nextgroup=ccmsTopicPrereq,ccmsTopicRelation contains=@NoSpell skipwhite
 
-syn match   ccmsTopicTitle       '\%(^\s*\)\@<=\S.\{-}\%(\s*\[[^\]]*\]\s*$\)\@=' contains=@Spell nextgroup=ccmsTopicID skipwhite
-syn match   ccmsTopicID          '\[\%(\d\+\|N,\s*\%(Concept\|Task\|Reference\)\)\]\%(\s*$\)\@=' contains=@NoSpell contained
-syn match   ccmsContainerKeyword '\%(^\s*\)\@<=\(Part\|Chapter\|Section\|Appendix\|Process\):' contains=@NoSpell nextgroup=ccmsContainerTitle skipwhite
-syn match   ccmsContainerTitle   '\S.*' contains=@Spell contained
-syn match   ccmsMetaVariable     '\%(^\s*\)\@<=\S.\{-}\%(\s*=\)\@=' contains=ccmsMetaKeyword,@NoSpell nextgroup=ccmsMetaValue skipwhite
-syn match   ccmsMetaKeyword      '\%(Bug Links\|Copyright Holder\)' contains=@NoSpell contained 
-syn region  ccmsMetaValue        matchgroup=ccmsNormal start='=\s*' end='\s*$' contains=@Spell,ccmsMetaMultiline,ccmsMetaChecksum contained
-syn region  ccmsMetaMultiline    matchgroup=ccmsDelimiter start='\%(=\s*\)\@<=\[\s*' end='\s*\]\s*' contains=@Spell contained
-syn match   ccmsMetaChecksum     '[0-9a-fA-F]\{32\}' contains=@NoSpell contained
+syn match   ccmsContainerKeyword '\%(^\s*\)\@<=\(Part\|Chapter\|Section\|Appendix\|Process\):' nextgroup=ccmsContainerTitle contains=@NoSpell skipwhite
+syn match   ccmsContainerTitle   contained '\S[^\[]*' contains=@Spell nextgroup=ccmsContainerTarget skipwhite
+syn region  ccmsContainerTarget  contained matchgroup=ccmsDelimiter start='\[\%(T\)\@=' end='\]' contains=@NoSpell skipwhite
+
+syn match   ccmsMetaVariable     '\%(^\s*\)\@<=\k.\{-}\%(\s*=\)\@=' contains=ccmsMetaKeyword,@NoSpell nextgroup=ccmsMetaValue skipwhite
+syn keyword ccmsMetaKeyword      contained Brand BZCOMPONENT BZPRODUCT BZURL CHECKSUM Description DTD Edition ID Product publican.cfg Subtitle Title Type Version
+syn match   ccmsMetaKeyword      contained '\%(Bug Links\|Copyright Holder\)' contains=@NoSpell
+syn region  ccmsMetaValue        contained matchgroup=ccmsNormal start='=\s*' end='\s*$' contains=@Spell,ccmsMetaMultiline,ccmsMetaChecksum
+syn region  ccmsMetaMultiline    contained matchgroup=ccmsDelimiter start='\%(=\s*\)\@<=\[\s*' end='\s*\]\s*' contains=@Spell
+syn match   ccmsMetaChecksum     contained '[0-9a-fA-F]\{32\}' contains=@NoSpell
+
 syn match   ccmsComment          '\%(^\s*\)\@<=#.*' contains=@Spell
 
 hi def link ccmsNormal           Normal
 hi def link ccmsDelimiter        Delimiter
 hi def link ccmsTopicTitle       String
 hi def link ccmsTopicID          Identifier
+hi def link ccmsTopicNew         Identifier
+hi def link ccmsTopicNewRef      Identifier
+hi def link ccmsTopicPrereq      Identifier
+hi def link ccmsTopicRelation    Identifier
+hi def link ccmsTopicTarget      Identifier
 hi def link ccmsContainerKeyword Type
 hi def link ccmsContainerTitle   Title
+hi def link ccmsContainerTarget  Identifier
 hi def link ccmsMetaVariable     Identifier
 hi def link ccmsMetaKeyword      Keyword
 hi def link ccmsMetaValue        String
