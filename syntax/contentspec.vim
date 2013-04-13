@@ -28,6 +28,8 @@ syn region  ccmsMetaValue        contained matchgroup=ccmsNormal start='=\s*' en
 syn region  ccmsMetaMultiline    contained matchgroup=ccmsDelimiter start='\%(=\s*\)\@<=\[\s*' end='\s*\]\s*' contains=@Spell
 syn match   ccmsMetaChecksum     contained '[0-9a-fA-F]\{32\}' contains=@NoSpell
 
+syn region  ccmsGlobalTags       matchgroup=ccmsDelimiter start='\%(^\s*\)\@<=\[' end='\]' contains=@Spell skipwhite
+
 syn match   ccmsComment          '\%(^\s*\)\@<=#.*' contains=@Spell
 
 hi def link ccmsNormal           Normal
@@ -47,6 +49,7 @@ hi def link ccmsMetaKeyword      Keyword
 hi def link ccmsMetaValue        String
 hi def link ccmsMetaMultiline    String
 hi def link ccmsMetaChecksum     Special
+hi def link ccmsGlobalTags       String
 hi def link ccmsComment          Comment
 
 let b:current_syntax = 'contentspec'
