@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:    PressGang CCMS Content Spec
 " Maintainer:  Jaromir Hradilek <jhradilek@gmail.com>
-" Last Change: 15 April 2013
+" Last Change: 18 April 2013
 " Description: A syntax file for PressGang CCMS Content Spec
 
 if exists('b:current_syntax') | finish | endif
@@ -21,7 +21,7 @@ syn match   ccmsContainerKeyword '\%(^\s*\)\@<=\(Part\|Chapter\|Section\|Appendi
 syn match   ccmsContainerTitle   contained '\S[^\[]*' contains=@Spell nextgroup=ccmsContainerTarget skipwhite
 syn region  ccmsContainerTarget  contained matchgroup=ccmsDelimiter start='\[\%(T\)\@=' end='\]' contains=@NoSpell skipwhite
 
-syn match   ccmsMetaVariable     '\%(^\s*\)\@<=\k.\{-}\%(\s*=\)\@=' contains=ccmsMetaKeyword,@NoSpell nextgroup=ccmsMetaValue skipwhite
+syn match   ccmsMetaVariable     '\%(^\s*\)\@<=\k\%(\s\|\k\)\{-}\%(\s*=\)\@=' contains=ccmsMetaKeyword,@NoSpell nextgroup=ccmsMetaValue skipwhite
 syn keyword ccmsMetaKeyword      contained Brand BZCOMPONENT BZPRODUCT BZURL CHECKSUM Description DTD Edition ID Product publican.cfg Pubsnumber Subtitle Title Type Version
 syn match   ccmsMetaKeyword      contained '\%(Bug Links\|Copyright Holder\)' contains=@NoSpell
 syn region  ccmsMetaValue        contained matchgroup=ccmsNormal start='=\s*' end='\s*$' contains=@Spell,ccmsMetaMultiline,ccmsMetaChecksum
