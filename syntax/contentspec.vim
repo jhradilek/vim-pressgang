@@ -22,8 +22,12 @@ syn match   ccmsContainerTitle   contained '\S[^\[]*' nextgroup=ccmsContainerTar
 syn region  ccmsContainerTarget  contained matchgroup=ccmsDelimiter start='\[\%(T\)\@=' end='\]' contains=@NoSpell skipwhite
 
 syn match   ccmsMetaVariable     '\%(^\s*\)\@<=\k\%(\s\|\k\)\{-}\%(\s*=\)\@=' nextgroup=ccmsMetaValue contains=ccmsMetaKeyword,@NoSpell skipwhite
+
+syn case ignore
 syn keyword ccmsMetaKeyword      contained Abstract Brand BZComponent BZProduct BZURL BZVersion CHECKSUM DTD Edition Feedback ID Product publican.cfg Pubsnumber Subtitle Title Type Version
 syn match   ccmsMetaKeyword      contained '\%(Book Version\|Bug Links\|Copyright Holder\|Copyright Year\|Inline Injection\|Legal Notice\|Revision History\|Survey Links\)' contains=@NoSpell
+syn case match
+
 syn region  ccmsMetaValue        contained matchgroup=ccmsNormal start='=\s*' end='\s*$' contains=@Spell,ccmsMetaMultiline,ccmsMetaChecksum
 syn region  ccmsMetaMultiline    contained matchgroup=ccmsDelimiter start='\%(=\s*\)\@<=\[' end='\]' contains=@Spell
 syn match   ccmsMetaChecksum     contained '[0-9a-fA-F]\{32\}' contains=@NoSpell
