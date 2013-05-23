@@ -34,7 +34,8 @@ syn match   ccmsMetaChecksum     contained '[0-9a-fA-F]\{32\}' contains=@NoSpell
 
 syn region  ccmsGlobalTags       matchgroup=ccmsDelimiter start='\%(^\s*\)\@<=\[' end='\]' contains=@Spell skipwhite
 
-syn match   ccmsComment          '\%(^\s*\)\@<=#.*' contains=@Spell
+syn match   ccmsComment          '\%(^\s*\)\@<=#.*' contains=@Spell,ccmsTodo
+syn keyword ccmsTodo             contained FIXME TODO XXX
 
 hi def link ccmsNormal           Normal
 hi def link ccmsDelimiter        Delimiter
@@ -55,5 +56,6 @@ hi def link ccmsMetaMultiline    String
 hi def link ccmsMetaChecksum     Special
 hi def link ccmsGlobalTags       String
 hi def link ccmsComment          Comment
+hi def link ccmsTodo             Todo
 
 let b:current_syntax = 'contentspec'
