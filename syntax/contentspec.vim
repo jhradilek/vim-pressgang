@@ -18,7 +18,7 @@ syn region  ccmsTopicRelation    contained matchgroup=ccmsDelimiter start='\[\%(
 syn region  ccmsTopicTarget      contained matchgroup=ccmsDelimiter start='\[\%(T\)\@=' end='\]' nextgroup=ccmsTopicPrereq,ccmsTopicRelation contains=@NoSpell skipwhite
 
 syn match   ccmsContainerKeyword '\%(^\s*\)\@<=\(Appendix\|Chapter\|Part\|Preface\|Process\|Section\):' nextgroup=ccmsContainerTitle contains=@NoSpell skipwhite
-syn match   ccmsContainerTitle   contained '\S[^\[]*' nextgroup=ccmsContainerTarget contains=@Spell skipwhite
+syn match   ccmsContainerTitle   contained '\S[^\[]*' nextgroup=ccmsContainerTarget,ccmsTopicID,ccmsTopicNew,ccmsTopicNewRef contains=@Spell skipwhite
 syn region  ccmsContainerTarget  contained matchgroup=ccmsDelimiter start='\[\%(T\)\@=' end='\]' contains=@NoSpell skipwhite
 
 syn match   ccmsMetaVariable     '\%(^\s*\)\@<=\k\%(\s\|\k\)\{-}\%(\s*=\)\@=' nextgroup=ccmsMetaValue contains=ccmsMetaKeyword,@NoSpell skipwhite
