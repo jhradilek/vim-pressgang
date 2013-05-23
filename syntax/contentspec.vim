@@ -21,9 +21,9 @@ syn match   ccmsContainerKeyword '\%(^\s*\)\@<=\(Appendix\|Chapter\|Part\|Prefac
 syn match   ccmsContainerTitle   contained '\S[^\[]*' nextgroup=ccmsContainerTarget contains=@Spell skipwhite
 syn region  ccmsContainerTarget  contained matchgroup=ccmsDelimiter start='\[\%(T\)\@=' end='\]' contains=@NoSpell skipwhite
 
-syn match   ccmsMetaVariable     '\%(^\s*\)\@<=\k\%(\s\|\k\)\{-}\%(\s*=\)\@=' contains=ccmsMetaKeyword,@NoSpell nextgroup=ccmsMetaValue skipwhite
-syn keyword ccmsMetaKeyword      contained Brand BZCOMPONENT BZPRODUCT BZURL CHECKSUM Description DTD Edition ID Product publican.cfg Pubsnumber Subtitle Title Type Version
-syn match   ccmsMetaKeyword      contained '\%(Bug Links\|Copyright Holder\)' contains=@NoSpell
+syn match   ccmsMetaVariable     '\%(^\s*\)\@<=\k\%(\s\|\k\)\{-}\%(\s*=\)\@=' nextgroup=ccmsMetaValue contains=ccmsMetaKeyword,@NoSpell skipwhite
+syn keyword ccmsMetaKeyword      contained Abstract Brand BZComponent BZProduct BZURL BZVersion CHECKSUM DTD Edition Feedback ID Product publican.cfg Pubsnumber Subtitle Title Type Version
+syn match   ccmsMetaKeyword      contained '\%(Book Version\|Bug Links\|Copyright Holder\|Copyright Year\|Inline Injection\|Legal Notice\|Revision History\|Survey Links\)' contains=@NoSpell
 syn region  ccmsMetaValue        contained matchgroup=ccmsNormal start='=\s*' end='\s*$' contains=@Spell,ccmsMetaMultiline,ccmsMetaChecksum
 syn region  ccmsMetaMultiline    contained matchgroup=ccmsDelimiter start='\%(=\s*\)\@<=\[' end='\]' contains=@Spell
 syn match   ccmsMetaChecksum     contained '[0-9a-fA-F]\{32\}' contains=@NoSpell
