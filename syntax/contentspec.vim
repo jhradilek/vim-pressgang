@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:    PressGang CCMS Content Spec
 " Maintainer:  Jaromir Hradilek <jhradilek@gmail.com>
-" Last Change: 23 May 2013
+" Last Change: 25 May 2013
 " Description: A syntax file for PressGang CCMS Content Spec
 
 " Check whether the syntax file is already loaded:
