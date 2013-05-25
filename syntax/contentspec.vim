@@ -12,13 +12,15 @@ setlocal iskeyword+=.
 syn case match
 
 " Match individual topics:
-syn match   ccmsTopicTitle       '\%(^\s*\)\@<=\S.\{-}\%(\s*\[[^\]]*\]\)\@=' nextgroup=ccmsTopicID,ccmsTopicNew,ccmsTopicNewRef contains=@Spell skipwhite
+syn match   ccmsTopicTitle       '^\s\+\S.\{-}\%(\s*\[[^\]]*\]\)\@=' nextgroup=ccmsTopicID,ccmsTopicNew,ccmsTopicNewRef contains=@Spell,ccmsTopicError skipwhite
 syn region  ccmsTopicID          contained matchgroup=ccmsDelimiter start='\[\%(\d\+[,\]]\)\@=' end='\]' nextgroup=ccmsTopicPrereq,ccmsTopicRelation,ccmsTopicTarget contains=@Spell skipwhite
 syn region  ccmsTopicNew         contained matchgroup=ccmsDelimiter start='\[\%(N\d*,\s*\%(Concept\|Task\|Reference\)[,\]]\)\@=' end='\]' nextgroup=ccmsTopicPrereq,ccmsTopicRelation,ccmsTopicTarget contains=@Spell skipwhite
 syn region  ccmsTopicNewRef      contained matchgroup=ccmsDelimiter start='\[\%(X\d\+\]\)\@=' end='\]' nextgroup=ccmsTopicPrereq,ccmsTopicRelation,ccmsTopicTarget contains=@NoSpell skipwhite
 syn region  ccmsTopicPrereq      contained matchgroup=ccmsDelimiter start='\[\%(P:\)\@=' end='\]' nextgroup=ccmsTopicRelation,ccmsTopicTarget contains=@NoSpell skipwhite
 syn region  ccmsTopicRelation    contained matchgroup=ccmsDelimiter start='\[\%(R:\|Refer-to:\)\@=' end='\]' nextgroup=ccmsTopicPrereq,ccmsTopicTarget contains=ccmsTopicID,@NoSpell skipwhite
 syn region  ccmsTopicTarget      contained matchgroup=ccmsDelimiter start='\[\%(T\)\@=' end='\]' nextgroup=ccmsTopicPrereq,ccmsTopicRelation contains=@NoSpell skipwhite
+syn match   ccmsTopicError       contained '^\%(  \)* [^ ]\@='
+syn match   ccmsTopicError       contained '\t'
 
 " Match high-level containers:
 syn match   ccmsContainerKeyword '\%(^\s*\)\@<=\(Appendix\|Chapter\|Part\|Preface\|Process\|Section\):' nextgroup=ccmsContainerTitle contains=@NoSpell skipwhite
@@ -56,6 +58,7 @@ hi def link ccmsTopicNewRef      Identifier
 hi def link ccmsTopicPrereq      Identifier
 hi def link ccmsTopicRelation    Identifier
 hi def link ccmsTopicTarget      Identifier
+hi def link ccmsTopicError       Error
 hi def link ccmsContainerKeyword Type
 hi def link ccmsContainerTitle   Title
 hi def link ccmsContainerTarget  Identifier
